@@ -29,7 +29,7 @@ function Authenticate ({token, setToken}) {
 <h2>Authenticate</h2>
             {successMessage && <p>{successMessage}</p>}
             {error && <p>{error}</p>}
-            <button onClick={handleClick}>Authenticate Token!</button>
+            <button onClick={handleClick}>Wicked Validate That Token, Kid!</button>
     {/* <button onClick={handleClick}>Authenticate!</button>
     {success ? <div>Successfully Authenticated!</div> : <div>Authenticate Token</div>} */}
     </>

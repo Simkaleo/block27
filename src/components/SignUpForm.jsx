@@ -45,7 +45,7 @@ const [error, setError] = useState(null);
   return (
     <>
     {/* Why is there the syntax spread? */}
-  <h2>Sign Up</h2>
+  <h1>🍩 Welcome to Dunkin' Rewards! 🍩 </h1>
   {error && <p>{error}</p>}
 {/* the above is just the way to do it */}
 
@@ -62,6 +62,9 @@ onChange={(e) => {
     // is there a typo in tagert in the text provided? also should it be event or e?
   />
  </label>
+ {username.length < 5 
+ ?<p>Username must be longer than 5 characters.</p>
+ :null}
  <br></br>
 {/* //  QUESTION is the order important below? I have them switched.  */}
 {/* <label input= {password}>Password 
@@ -71,15 +74,18 @@ onChange={(e) =>
   /> */}
  
  <label htmlFor="password">Password</label>
+
         <input
           type="password"
           id="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-        />
+        /> {password.length < 5 
+ ?<p>Password must be longer than 5 characters.</p>
+ :null}
   <br></br>
   <br></br>
-  <button type="submit">Submit</button> 
+  <button type="submit">Hit the 'Senda" Button!</button> 
  {/* Why is this so different from the solution provided. Do we not need to do so much? */}
   </form>
   </>
