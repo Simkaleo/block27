@@ -1,44 +1,51 @@
 import { useState } from "react";
 
 
-export default function SignUpForm () {
-const [username, setUsername] = useState("");
-const [password, setPassword] = useState("");
+function SignUpForm ({setToken}) {
+const [username, setUsername] = useState('');
+const [password, setPassword] = useState('');
 const [error, setError] = useState(null);
 
 // Question - I put the const above the export function. should it always be placed under the export default function? 
 
 
   // state
-  async function handleSubmit (event) {
-    event.preventDefault();
+  async function handleSubmit (e) {
+    e.preventDefault()
     // console.log("My vision was CHICKen ParmiGIANA! 🍝")
   
 
 // Because the network request could fail, start by writing a try/catch block in our handleSubmit function. After you preventDefault delete your console.log and replace it with a try/catch. In your catch block, pass the error.message to your setError function. This way, we can store a server error in the application state and display it.
 
   try {
-    const response = await fetch("https://fsa-jwt-practice.herokuapp.com/signup");
-      const result = await response.json();
-      console.log(result); 
-    }
-
-  } catch (error) {
-    console.error(error.message);
-  }
+    const response = await fetch('https://fsa-jwt-practice.herokuapp.com/signup',
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: username,
+        password: "password",
+      }),
+    });
+  const result = await response.json();
+  setToken(result.token)
+  console.log(result)
+} catch(error){
+  console.log(error)
 }
-
+}
+    
 
 // use Effect? Ask the question 
-
-
 
 
 // return
   return (
     <>
     {/* Why is there the syntax spread? */}
-  <h2>Sign Up</h2>;
+  <h2>Sign Up</h2>
   {error && <p>{error}</p>}
 {/* the above is just the way to do it */}
 
@@ -48,24 +55,35 @@ const [error, setError] = useState(null);
 {/* Solution Provided is the following: 
 <input value={username} onChange={(e) => setUsername(e.target.value)} /> */}
     <form onSubmit={handleSubmit}>
-<label for= "text">Username:
+<label htmlFor= "text">Username 
 <input value={username}
-onChange={(e) => (
-  setUsername(e.target.value)}
-  // is there a typo in tagert in the text provided? also should it be event or e?
+onChange={(e) => {
+  setUsername(e.target.value)}}
+    // is there a typo in tagert in the text provided? also should it be event or e?
   />
  </label>
-//  QUESTION is the order important below? I have them switched. 
-<label input= {password}>Password:
+ <br></br>
+{/* //  QUESTION is the order important below? I have them switched.  */}
+{/* <label input= {password}>Password 
 <input type="password"
-onChange={(e) => (
-  setUsername(e.target.value)
-  />
+onChange={(e) => 
+  setPassword(e.target.value)}
+  /> */}
  
-  </label>
+ <label htmlFor="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+  <br></br>
+  <br></br>
   <button type="submit">Submit</button> 
  {/* Why is this so different from the solution provided. Do we not need to do so much? */}
   </form>
   </>
   ); 
 }
+
+export default SignUpForm

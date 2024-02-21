@@ -1,13 +1,17 @@
+import { useState } from 'react'
 import './App.css';
-import { useState, useEffect } from 'react';
-import SignUpForm from "./SignUpForm"
-import Authenticate from "./Authenticate"
+import SignUpForm from './components/SignUpForm'
+import Authenticate from './components/Authenticate'
 
-export default function App () {
+function App () {
+  const [token, setToken] = useState(null)
   return (
     <>
-    <Authenticate />
-    <SignUp form/>
+      <SignUpForm token={token} setToken={setToken}/>
+      <Authenticate token={token} setToken={setToken}/>
+  
     </>
   );
 }
+
+export default App
